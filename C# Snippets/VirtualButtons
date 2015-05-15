@@ -1,0 +1,78 @@
+using UnityEngine;
+using System.Collections;
+using Vuforia;
+
+public class MapVirtualButtons : MonoBehaviour, IVirtualButtonEventHandler
+{
+	
+	// Private fields to store the models
+	public GameObject _TriggerOne;
+	public GameObject _TriggerTwo;
+	public GameObject _TriggerThree;
+	public GameObject _TriggerFour;
+	
+	/// <summary>
+	/// Called when the scene is loaded
+	/// </summary>
+	void Start() {
+		
+		// Search for all Children from this ImageTarget with type VirtualButtonBehaviour
+		VirtualButtonBehaviour[] vbs = GetComponentsInChildren<VirtualButtonBehaviour>();
+		for (int i = 0; i < vbs.Length; ++i) {
+			// Register with the virtual buttons TrackableBehaviour
+			vbs[i].RegisterEventHandler(this);
+		}
+		
+		// Find the models based on the names in the Hierarchy
+		_TriggerOne = transform.FindChild ("TriggerOne").gameObject;
+		_TriggerTwo = transform.FindChild("TriggerTwo").gameObject;
+		_TriggerThree = transform.FindChild("TriggerThree").gameObject;
+		_TriggerFour = transform.FindChild("TriggerFour").gameObject;
+		
+		// We don't want to show Jin during the startup
+		_TriggerOne.SetActive(false);
+		_TriggerTwo.SetActive (false);
+		_TriggerThree.SetActive (false);
+		_TriggerFour.SetActive (false);
+	}
+	
+	/// <summary>
+	/// Called when the virtual button has just been pressed:
+	/// </summary>
+	public void OnButtonPressed(VirtualButtonAbstractBehaviour vb) {
+		switch(vb.VirtualButtonName) {
+		case "ButtonTwo":
+			_TriggerOne.SetActive(false);
+			_TriggerTwo.SetActive(true);
+			_TriggerThree.SetActive(false);
+			_TriggerFour.SetActive(false);
+			break;
+		case "ButtonOne":
+			_TriggerOne.SetActive(true);
+			_TriggerTwo.SetActive(false);
+			_TriggerThree.SetActive(false);
+			_TriggerFour.SetActive(false);
+			break;
+		case "ButtonThree":
+			_TriggerOne.SetActive(false);
+			_TriggerTwo.SetActive(false);
+			_TriggerThree.SetActive(true);
+			_TriggerFour.SetActive(false);
+			break;
+		case "ButtonFour":
+			_TriggerOne.SetActive(false);
+			_TriggerTwo.SetActive(false);
+			_TriggerThree.SetActive(false);
+			_TriggerFour.SetActive(true);
+			break;
+		default:
+			throw new UnityException("Button not supported: " + vb.VirtualButtonName);
+			break;
+		}
+	}
+	
+	/// <summary>
+	/// Called when the virtual button has just been released:
+	/// </summary>
+	public void OnButtonReleased(VirtualButtonAbstractBehaviour vb) { }
+}
