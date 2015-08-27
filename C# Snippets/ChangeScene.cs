@@ -1,20 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Vuforia;
 
-public class ChangeScene : MonoBehaviour 
-{
-
-
-	public void ChangeToSceneTower (string sceneToChangeTo) 
-	{
-		Application.LoadLevel ("Century Tower");
+public class ChangeScene : MonoBehaviour {
+	
+	public void ChangeToScene (string sceneToChangeTo){
+		Application.LoadLevel(sceneToChangeTo);
 	}
-	public void ChangeToSceneTurlington (string sceneToChangeTo) 
-	{
-		Application.LoadLevel ("TurlingtonSign");
-	}
-	public void ChangeToSceneUI (string sceneToChangeTo) 
-	{
-		Application.LoadLevel ("UIMenu");
-	}
-}
