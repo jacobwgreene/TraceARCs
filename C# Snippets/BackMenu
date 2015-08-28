@@ -1,0 +1,17 @@
+using UnityEngine;
+using System.Collections;
+
+public class BackMenu : MonoBehaviour {
+
+	public string lastScene;
+
+	void Update () {
+		
+		if (Input.GetKeyDown (KeyCode.Escape))
+			Application.LoadLevel (lastScene);
+		
+	}
+	
+}
+
+
