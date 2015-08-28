@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
+using Vuforia;
 
 public class Hyperlink : MonoBehaviour {
-	void OnMouseUpAsButton() {
-		Application.OpenURL("http://www.english.ufl.edu/");
+
+	public void website (){
+		Application.OpenURL ("http://google.com");
 	}
 }
