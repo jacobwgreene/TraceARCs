@@ -1,0 +1,11 @@
+using UnityEngine;
+using System.Collections;
+using Vuforia;
+
+public class HyperlinkOverlay : MonoBehaviour {
+	// Use this for initialization
+	public void OnMouseDown(){
+		Application.OpenURL ("http://trace.english.ufl.edu/projects/arcs/seeworld/");
+	}
+
+}
