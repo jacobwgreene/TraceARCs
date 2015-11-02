@@ -1,0 +1,103 @@
+using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;
+
+public class triggerPacs : MonoBehaviour 
+{
+	private int count;
+	public Text countText;
+	public Text winText;
+	public Text timeText;
+	public Text loseText;
+	public GameObject gold;
+
+	public GameObject pac;
+	public GameObject single;
+
+
+
+	public float startTime;
+	private string currentTime;
+
+
+	void Start()
+	{
+		count = 0;
+		SetCountText ();
+		winText.text = "";
+		loseText.text = "";
+		gold.SetActive (false);
+		pac.SetActive (true);
+		single.SetActive (true);
+	}
+
+	void Update()
+	{
+		startTime -= Time.deltaTime;
+		currentTime = string.Format ("{0:0}", startTime);
+		timeText.text = currentTime.ToString ();
+
+		if (startTime <= 0) 
+		{
+			startTime = 0;
+			gameObject.SetActive(false);
+			loseText.text = "Time's Up";
+			pac.SetActive(false);
+			single.SetActive(false);
+		}
+
+		if (count >= 60) 
+		{
+			Time.timeScale = 0;
+		}
+
+
+	}
+
+	void OnTriggerEnter (Collider other)
+	{			
+		if (other.gameObject.tag == "Pac")
+		{   
+			//play audio source in gameobject this script is attached to
+			GetComponent<AudioSource> ().Play ();
+
+			//increment private count variable by 20 when the user drags the Pac object into the logo
+			count = count + 20;
+			SetCountText();
+			Destroy (other.gameObject);
+
+			//Destroy all single payer donations if you drag in super PAC money
+			//Destroy (GameObject.FindWithTag ("Single"));	
+		}
+
+		if (other.gameObject.tag == "Single") 
+		{
+			GetComponent<AudioSource> ().Play ();
+
+			count = count + 1;
+
+			SetCountText();
+			Destroy (other.gameObject);
+
+			//Destroy all PAC donations if you drag in single payer money. 
+			//We could change it to just delete a few of the single payers rather than all.
+			//Destroy (GameObject.FindWithTag ("Pac"));
+		}
+
+	}
+
+	//function for creating text to count poll number increase
+	void SetCountText()
+	{
+		countText.text = "$" + count.ToString ();
+		if (count >= 60) 
+		{
+			winText.text = "You're Funded!";
+			gold.SetActive(true);
+			pac.SetActive(false);
+			single.SetActive(false);
+
+		}
+
+	}
+}
