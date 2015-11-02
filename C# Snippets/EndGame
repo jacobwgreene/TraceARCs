@@ -1,0 +1,15 @@
+using UnityEngine;
+using System.Collections;
+
+public class QuitButton : MonoBehaviour {
+
+	public void ClickExit(){
+        Application.Quit();
+        
+    }
+
+	public void restart (){
+		Application.LoadLevel (Application.loadedLevel);
+	}
+	
+}
