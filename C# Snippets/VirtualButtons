@@ -23,13 +23,7 @@ public class MapVirtualButtons : MonoBehaviour, IVirtualButtonEventHandler
 			vbs[i].RegisterEventHandler(this);
 		}
 		
-		// Find the models based on the names in the Hierarchy
-		_TriggerOne = transform.FindChild ("TriggerOne").gameObject;
-		_TriggerTwo = transform.FindChild("TriggerTwo").gameObject;
-		_TriggerThree = transform.FindChild("TriggerThree").gameObject;
-		_TriggerFour = transform.FindChild("TriggerFour").gameObject;
-		
-		// We don't want to show Jin during the startup
+		// We don't want to show overlay content on startup
 		_TriggerOne.SetActive(false);
 		_TriggerTwo.SetActive (false);
 		_TriggerThree.SetActive (false);
